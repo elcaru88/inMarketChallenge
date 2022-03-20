@@ -28,8 +28,8 @@ public class CourseRest {
         return ResponseEntity.ok(courseService.searchCourses(buildQueryMap(title, description, studentid)));
     }
 
-    @GetMapping
-    public ResponseEntity<CourseDTO> getCourseByCode(@PathParam("id") Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CourseDTO> getCourseByCode(@PathVariable("id") Long id) {
         return ResponseEntity.ok(courseService.getCourseByCode(id));
     }
 
@@ -45,13 +45,13 @@ public class CourseRest {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathParam("id") Long id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}/students")
-    public ResponseEntity<List<StudentDTO>> getStudents(@PathParam("id") Long id) {
+    public ResponseEntity<List<StudentDTO>> getStudents(@PathVariable("id") Long id) {
         return ResponseEntity.ok(courseService.getStudents(id));
     }
 
@@ -62,7 +62,7 @@ public class CourseRest {
         Map<String, Object> queryParam = new HashMap<>();
         oTitle.ifPresent(title -> queryParam.put("title", title));
         oDescription.ifPresent(description -> queryParam.put("description", description));
-        oStudentid.ifPresent(studentId -> queryParam.put("student_id", studentId));
+        oStudentid.ifPresent(studentId -> queryParam.put("studentId", studentId));
         return queryParam;
     }
 }

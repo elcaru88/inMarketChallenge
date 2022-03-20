@@ -1,7 +1,6 @@
 package com.inmarket.challenge.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.inmarket.challenge.model.Course;
 import com.inmarket.challenge.model.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
