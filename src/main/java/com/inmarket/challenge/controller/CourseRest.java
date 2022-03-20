@@ -39,7 +39,7 @@ public class CourseRest {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CourseDTO> updateCourse(@RequestBody CourseDTO course, @PathParam("id") Long id) {
+    public ResponseEntity<CourseDTO> updateCourse(@RequestBody CourseDTO course, @PathVariable("id") Long id) {
         courseService.updateCourse(course, id);
         return ResponseEntity.ok(course);
     }

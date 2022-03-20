@@ -2,6 +2,7 @@ package com.inmarket.challenge.service;
 
 import com.inmarket.challenge.dto.CourseDTO;
 import com.inmarket.challenge.dto.StudentDTO;
+import com.inmarket.challenge.exceptions.ChallengeEntityNotFoundException;
 import com.inmarket.challenge.model.Student;
 import com.inmarket.challenge.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class StudentService {
     }
 
     public StudentDTO getStudentById(Long studentId) {
-        return StudentDTO.from(studentRepository.getById(studentId));
+        return StudentDTO.from(studentRepository.findById(studentId).orElseThrow(ChallengeEntityNotFoundException::new));
     }
 
     public StudentDTO createStudent(StudentDTO student) {
@@ -55,6 +56,7 @@ public class StudentService {
     }
 
     public void updateStudent(StudentDTO student, Long studentId) {
+        studentRepository.findById(studentId).orElseThrow(ChallengeEntityNotFoundException::new);
         studentRepository.saveAndFlush(student.buildEntity(studentId));
     }
 

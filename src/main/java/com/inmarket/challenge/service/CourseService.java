@@ -2,8 +2,8 @@ package com.inmarket.challenge.service;
 
 import com.inmarket.challenge.dto.CourseDTO;
 import com.inmarket.challenge.dto.StudentDTO;
+import com.inmarket.challenge.exceptions.ChallengeEntityNotFoundException;
 import com.inmarket.challenge.model.Course;
-import com.inmarket.challenge.model.Student;
 import com.inmarket.challenge.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -46,8 +46,8 @@ public class CourseService {
         return q.getResultList().stream().map(CourseDTO::from).collect(Collectors.toList());
     }
 
-    public CourseDTO getCourseByCode(Long courseId) {
-        return CourseDTO.from(courseRepository.getById(courseId));
+    public CourseDTO getCourseByCode(Long courseCode) {
+        return CourseDTO.from(courseRepository.findById(courseCode).orElseThrow(ChallengeEntityNotFoundException::new));
     }
 
     public CourseDTO createCourse(CourseDTO course) {
@@ -56,6 +56,7 @@ public class CourseService {
     }
 
     public void updateCourse(CourseDTO course, Long courseCode) {
+        courseRepository.findById(courseCode).orElseThrow(ChallengeEntityNotFoundException::new);
         courseRepository.save(course.buildEntity(courseCode));
     }
 
