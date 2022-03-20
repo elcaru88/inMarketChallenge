@@ -40,20 +40,14 @@ public class StudentRest {
 
     @PutMapping("/{id}")
     public ResponseEntity<StudentDTO> updateStudent(@PathParam("id") Long id, @RequestBody StudentDTO student) {
-        if (studentService.updateStudent(student, id)) {
-            return ResponseEntity.ok(student);
-        } else {
-            return ResponseEntity.status(400).build();
-        }
+        studentService.updateStudent(student, id);
+        return ResponseEntity.ok(student);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathParam("id") Long id) {
-        if (studentService.deleteStudent(id)) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(400).build();
-        }
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}/courses")
